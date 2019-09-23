@@ -1,0 +1,37 @@
+git clone https://github.com/mmk0102/ardupilot
+cd ardupilot
+git submodule update --init --recursive
+
+
+./waf configure --board fmuv2
+./waf --targets bin/ardusub
+ps aux | grep -i apt 	-chek before apt
+
+Running ArduSub SITL
+cd ardupilot/ArduSub
+sim_vehicle.py -L RATBeach --out=udp:0.0.0.0:14550 --map --console
+sim_vehicle.py -f gazebo-bluerov2 -L RATBeach --out=udp:0.0.0.0:14550 --console
+
+
+sudo apt remove gazebo
+sudo apt-get install gazebo8
+sudo apt-get install libgazebo8-dev
+sudo apt update
+sudo apt list --upgradable 
+
+cd ardupilot/
+./waf configure --board pixhawk1
+./waf sub
+./waf --upload sub
+
+cd ardupilot_gazebo/
+source gazebo.sh
+gazebo worlds/underwater.world -u
+
+//Create a Git branch and checkout in one command:
+git checkout -b <branch_name>
+
+//удалить и добавить ориджн
+git remote rm origin
+$ git remote add origin <repo-url>
+

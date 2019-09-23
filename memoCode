@@ -1,0 +1,45 @@
+bool AC_Fence::pre_arm_check
+
+AP_Mission::start()
+
+guided_set_speed_yaw.py - see for send SET_POSITION_TARGET_LOCAL_NED
+
+AC_PosControl::get_stopping_point_xy(Vector3f &stopping_point) const - mb replasce it in guid.mode
+
+sub.guided_set_destination(pos_neu_cm);
+
+bool Sub::verify_within_distance()
+{
+    if (wp_nav.get_wp_distance_to_destination() < (uint32_t)MAX(condition_value,0)) {
+        condition_value = 0;
+        return true;
+    }
+    return false;
+}
+
+ 
+
+set_mode(STABILIZE, MODE_REASON_TX_COMMAND);
+______
+
+ pos_control.set_alt_target(0);
+
+    // attitude hold inputs become thrust inputs in manual mode
+    // set to neutral to prevent chaotic behavior (esp. roll/pitch)
+    set_neutral_controls();
+
+_pos_control.set_pos_target(origin + Vector3f(0,0,terr_offset));
+
+guided_pos_control_start() - can reposite my pos to "stopping point" !
+
+In: 
+set_wp_origin_and_destination(
+important settings ...
+ _flags.reached_destination = false;
+    _flags.fast_waypoint = false;   // default waypoint back to slow
+    _flags.slowing_down = false;    // target is not slowing down yet
+    _flags.segment_type = SEGMENT_STRAIGHT;
+    _flags.new_wp_destination = true;   // flag new waypoint so we can freeze the pos controller's feed forward and smooth the transition
+    _flags.wp_yaw_set = false;
+...}
+
