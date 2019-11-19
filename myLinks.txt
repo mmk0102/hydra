@@ -1,3 +1,5 @@
+http://cloud.ec-ics.ru/owncloud/index.php/s/NPngBtClDQhxcKy
+
 192.168.2.2:14550 - rasb
 
 https://www.ardusub.com/software/components.html 		- юпухрейрспю of proj px4+RBi+qgrnd+joystick
