@@ -1,3 +1,5 @@
+WDG driver activated but no xWDG peripheral assigned
+
 calc_yaw_dir() - in guided - take wrong yaw_dir
 
 _motors.set_yaw(rate_target_to_motor_yaw(gyro_latest.z, _rate_target_ang_vel.z));
@@ -24,3 +26,31 @@ public:
         k_flap_auto             = 3,            ///< flap automated
         k_aileron               = 4,            ///< aileron
         k_unused1               = 5,            ///< unused function
+
+PION---
+
+Latitude 3723.2475 ddmm.mmmm - широта
+
+Longitude 12158.3416 dddmm.mmmm - долгота
+
+// return distance in meters between two locations
+float Location::get_distance(const struct Location &loc2) const
+{
+    float dlat = (float)(loc2.lat - lat);
+    float dlng = ((float)(loc2.lng - lng)) * loc2.longitude_scale();
+    return norm(dlat, dlng) * LOCATION_SCALING_FACTOR;
+}
+
+
+float Location::longitude_scale() const
+{
+    float scale = cosf(lat * (1.0e-7f * DEG_TO_RAD));
+    return constrain_float(scale, 0.01f, 1.0f);
+}
+
+].location
+
+case MAVLINK_MSG_ID_GPS_INPUT:
+
+case MAVLINK_MSG_ID_HIL_GPS:
+

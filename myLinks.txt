@@ -2,6 +2,8 @@ http://cloud.ec-ics.ru/owncloud/index.php/s/NPngBtClDQhxcKy
 
 192.168.2.2:14550 - rasb
 
+https://www.gnu.org/software/octave/support.html
+
 https://www.ardusub.com/software/components.html 		- юпухрейрспю of proj px4+RBi+qgrnd+joystick
 https://www.ardusub.com/getting-started/installation.html
 https://www.ardusub.com/developers/sitl.html
@@ -23,9 +25,18 @@ https://discuss.bluerobotics.com/t/depth-hold-mode/1188 	- SURFACE_DEPTH
 
 https://stackoverflow.com/questions/41718822/how-to-resolve-fatal-not-a-git-repository - fix modules copy from old repo
 
+https://github.com/priseborough/InertialNav/blob/master/derivations/GenerateEquations22states.m
+- The EKF (Extended Kalman Filter) algorithm PX4
+
 tmp
 strange links (mb old dev tools) http://ardupilot.org/copter/docs/common-downloads_developer_tools.html
 https://www.christianengvall.se/install-ubuntu-virtualbox/
 http://releases.ubuntu.com/16.04/
 https://askubuntu.com/questions/142549/how-to-install-ubuntu-on-virtualbox
 http://ardupilot.org/dev/docs/copter-commands-in-guided-mode.html#copter-commands-in-guided-mode-set-position-target-global-int
+
+https://icp-das.ru/catalog/lx-8731
+
+kalm filt
+https://blog.maddevs.io/reduce-gps-data-error-on-android-with-kalman-filter-and-accelerometer-43594faed19c
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3871121/

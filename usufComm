@@ -1,10 +1,27 @@
+Сборка WatercraftAws:
+1. pathes:
+cd APM/3rdparty/qgc_patches/
+bash apply_patches.sh
+2. qgc - make
+3. cd APM/src
+sh build.sh
+
+
+cd ardupilot_gazebo/
+source gazebo.sh
+gazebo worlds/underwater.world -u
+
 for sh - #!/bin/sh
 git clone https://github.com/mmk0102/ardupilot
 cd ardupilot
 git submodule update --init --recursive
 
-
+cd ardupilot
+./waf configure --board pixhawk1
 ./waf configure --board fmuv2
+./waf sub
+./waf --upload sub
+
 ./waf --targets bin/ardusub
 ps aux | grep -i apt 	-chek before apt
 
@@ -20,14 +37,8 @@ sudo apt-get install libgazebo8-dev
 sudo apt update
 sudo apt list --upgradable 
 
-cd ardupilot/
-./waf configure --board pixhawk1
-./waf sub
-./waf --upload sub
 
-cd ardupilot_gazebo/
-source gazebo.sh
-gazebo worlds/underwater.world -u
+
 
 //Create a Git branch and checkout in one command:
 git checkout -b <branch_name>
@@ -49,30 +60,44 @@ sudo apt install libqt5quickwidgets5
 
 ____________________
 
-Pion
+Pion LX-8731
 
+ssh root@192.168.4.218 
+pass icpdas
+
+redact net interfaces (from box):
+cd /etc/network
+nano interfaces
+
+
+LP-old(8841)
 ssh root@192.168.1.8
 
-compilation: ./make_debug.sh
-copy to controller: /SUD$ ./scp_all.sh
-start progr on PLC: ./husky_10 -m -f pion.ini
-or
-start progr on PLC: ./husky_10 -m -dv -f pion.ini
+compilation: /SUD$		./make_debug.sh
+copy to controller: /SUD$ 	./scp_all.sh
+
+copy: 192.168.1.9 - dont work
+scp klmn.log rubanov@192.168.1.9:/root/home/rubanov/klmn.log
+
+
+start progr on PLC:
+./husky_10 -m -f pion.ini
+./husky_10 -m -dv -f pion.ini  
+
+./getreceive 0 ttyS22 50 9600 8n1
+
+2>&1 
 
 killall -9 husky_10
 
 ./send_nmea 1 1 NMEA_GLL GPGLL,5057.970,N,00146.110,E,1424 A*
-$GPGLL,3000.070,N,145.222,E,144,A*1D
-$--THS,11.11,A*20
 
-$--VHW,1.1,T,1.1,M,1.1,N,0.2,K*57
+		
+sudo cat sensorsdata.txt > /dev/ttyUSB0  	- send raw file from PC to PLC
+sudo cat nmea.log > /dev/ttyUSB0
 
-$--VTG ,1.1, T,1.1, M,1.1, N,0.2, K*7B
 
-$--GGA, 123211.33,2222.11, S,2332.22,W, 5, 07, 1.2, 3.5,3, 3.4, 2, 2.2,0077*78
-
-$--ZDA, 122307.12,10,11, 1999, 3, 00*4D
-
-$--MWV, 355.2, R, 2.1, M, A*1C
+usuful log of git:
+git log --pretty=format:"%H [%cd]: %an - %s" --graph --date=format:%c
 
 
