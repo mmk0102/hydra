@@ -1,0 +1,46 @@
+16.03.20
+Уст-л: VS Code, git - в C:\Users\Mikkir\AppData\Local\Programs поскольку не было прав админа.
+С ГИТом встал MINGW64, when commited it give me mess:
+" Committer: Kiriltcev <mikkir@int.kronshtadt.ru>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com		"
+
+17.03.20
+Запуск minGW - git Bash
+
+Запуск cmake из win cmd.exe дает:
+cl
+
+  is not a full path and was not found in the PATH.
+
+вероятно не стоит компил-р
+поставил cigwin - наверно надо доставить cmake
+
+поставил virtualbox. он не открывает .img файл в котором мне сбросили образ AstraLinux15
+для работы нужно сконвертить его в .vdi:
+C:\>cd Program Files\Oracle\VirtualBox
+C:\Program Files\Oracle\VirtualBox>VBoxManage.exe convertfromraw -format VDI C:\Users\Mikkir\Documents\Virtual\AstraLinux15\AstraLinux15.img C:\Users\Mikkir\Documents\Virtual\AstraLinux15\AstraLinux15.vdi
+
+Для подключения vdi нужно создать машину. При этом нужно 64, а в списке только 32. Проблема описана здесь:
+https://it-actual.ru/no-x64-bit-emulation-options-in-virtualbox-fix.html
+но суть: "заключается в отключенной функции аппаратной виртуализации в центральном процессоре компьютера."
+в БИОС:  Intel Virtual Technology или нечто похожее должно быть enable
+Помогло.
+Так же выставил пункт про мультимониторы и он как-то подключился (не сразу и я не заметил как). 
+cmake и make работают в cygwin. 
+
+Пока не получ-я подключ. второй жесткий диск - отказано в доступе.
+
+18.03.20
+Затянули Styx через SVN. 
+удалил мой cygwin - из-за неправ-й версии cmake. Теперь это в cygwin_pack
+Для коррек-й работы подправил C:\cygwin_pack\cygwin\etc\fstab
+и C:\cygwin_pack\Cygwin.bat
+Для начала работы и настроек бат-файл надо запустить.
+
+Быстрый переход в Styx - cd Styx (минуя проджект)
+в /Styx/Rtems/Make был выполнен make
