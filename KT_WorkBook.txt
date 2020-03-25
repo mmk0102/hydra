@@ -1,15 +1,15 @@
-16.03.20
+*****16.03.20
 Уст-л: VS Code, git - в C:\Users\Mikkir\AppData\Local\Programs поскольку не было прав админа.
 С ГИТом встал MINGW64, when commited it give me mess:
-" Committer: Kiriltcev <mikkir@int.kronshtadt.ru>
+Committer: Kiriltcev <mikkir@int.kronshtadt.ru>
 Your name and email address were configured automatically based
 on your username and hostname. Please check that they are accurate.
 You can suppress this message by setting them explicitly:
 
     git config --global user.name "Your Name"
-    git config --global user.email you@example.com		"
+    git config --global user.email you@example.com		
 
-17.03.20
+*****17.03.20
 Запуск minGW - git Bash
 
 Запуск cmake из win cmd.exe дает:
@@ -35,7 +35,7 @@ cmake и make работают в cygwin.
 
 Пока не получ-я подключ. второй жесткий диск - отказано в доступе.
 
-18.03.20
+*****18.03.20
 Затянули Styx через SVN. 
 удалил мой cygwin - из-за неправ-й версии cmake. Теперь это в cygwin_pack
 Для коррек-й работы подправил C:\cygwin_pack\cygwin\etc\fstab
@@ -44,3 +44,102 @@ cmake и make работают в cygwin.
 
 Быстрый переход в Styx - cd Styx (минуя проджект)
 в /Styx/Rtems/Make был выполнен make
+для windows нужен visual-studio
+
+настроил git-config, but has recived:"SSL certificate problem: self signed certificate in certificate chain"
+help this: git config --global http.sslVerify false
+now push is working
+
+*****19.03.20
+Добавил пути к новому месту cygwin.
+echo %PATH% - вывод всех сист-х путей.
+cd /cygdrive/c - переход к диску С
+ln -s /cygdrive/c /c - создание симв-й ссылки на С, после для навиг-ии достаточно делать как то так:
+"cd /c/Foo
+cd /c/"
+
+Принтер ищется в \\voksv-prnserv по 628
+
+First task:
+C:\projects\orion\Doc\03_Software\High_Level_Requirements - здесь описание ОЭС-О
+Код: 
+OESOTask.h
+namespace OESO
+
+Отладка: 
+файл Contrace: 
+CONTRACE("%20s: %d\n", "State", (int)POS::indicator.StateCode());
+
+*****23.03.20
+Делаю запись в понед. 23.03
+Проблему с диск D решили (веро-о) отключением в БИОС hot launch (или что-то такое).
+Мне поставили 2+1 задачи (+1 вытекла из прервых 2х). 
+
+Схема работы с кодом Орион:
+- Отдельно компилируем и ICD, затем Orion
+- Компил-я происходит созданием копии папки build и правки скриптов с названиями соот-й ОС.
+- запущеный в Styx скрипт должен создвть папку inst_x86_debug,
+которая затем упомянута в скрипте Орион. 
+
+Перед изменением статуса на complete/des-d ставим номер сборки (сейчас 1.1.7. ) который берем из jenkins: 
+http://vorsv-ci.int.kronshtadt.ru:8080/job/BIUS/
+
+Пр. оформл. коммита: "Ticket #20691 ОЭС-ОН. ..."
+
+Создание репортов в trac:
+Projects
+Year
+Add filter->subtask (Develop-r/Manager): свое (чужое) имя.
+
+*****24.03.20
+
+Порядок update commit:
+Should we always update before committing in SVN?
+"Merging in Centralized Version Control Systems (CVCS) like subversion is always done before commits so you should update, test (if there are changes), then commit."
+
+Для сборки ICD исп-я папка из: C:\projects\orion\Src\build_icd 
+cygwin поставил снова из файла cygwin_new_repack.zip который содержит прав-ю версию. В папке C:\cygwin_pack лежит так же нужный bat скрипт и нужно поправить fstab из etc.
+
+*****25.03.20
+Компиляция ICD, Styx adn Orion: 
+Путь к C:\projects\ICD\trunk\Src\build_icd
+Иду в cyg_win по этому пути и запускаю скрипты (в папке должно быть 3 файла: build_rtems_toolchain.cmake, Cmake_01_ninja_create.sh, Cmake_02_build.sh).
+
+Рабочие скрипты выгл-т так:
+Cmake_01_ninja_create.sh:
+export ICD_SOURCE_DIR=/cygdrive/c/projects/ICD/trunk/Src
+export ICD_INSLALL_PATH=/cygdrive/c/projects/ICD/inst_rtems_debug/
+export RTEMS_PATH=/cygdrive/c/cygwin_pack/ppc-rtems-4.9.2
+export STYX_PATH=/Styx/Src
+
+
+#-DICD_BUILD_TYPE="BIUS" 
+cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=build_rtems_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DICD_BUILD_TYPE="BIUS" -DICD_BIGENDIAN=YES -DCMAKE_INSTALL_PREFIX=$ICD_INSLALL_PATH -DCMAKE_VERBOSE_MAKEFILE=on -DRTEMS_PATH=$RTEMS_PATH -DSTYX_PATH=$STYX_PATH -DTARGET_OS=RTEMS $ICD_SOURCE_DIR
+
+Cmake_02_build.sh:
+cmake --build . -- -j4 -- install
+#cmake --build . -- install
+
+build_rtems_toolchain.cmake менять не надо
+
+Styx adn Orion собираются под make, не cmake(in rtem):
+(ICD под cmake как описано выше)
+
+Компил-я Styx (если он измен-я) - можно просто: 
+make -j 7 MODE=DEBUG
+в C:\projects\Styx\Rtems\Make (все под cyg_win)
+
+Компил-я Orion (rtem, in cyg_win):
+C:\projects\orion\Src\Rtems\Make\ORION
+make_wo_icd_debug1.sh
+
+Выдает ошибку: Нет правила для сборки цели «LinkClock.cpp»
+возм-о в cyg_win нет  /mfd
++ way was in script: cygdrive/c/projects/ICD/trunk/Src/
+but must: cygdrive/c/projects/ICD/trunk/Src/src
+
+собранный орион будет в каталоге: 
+C:\projects\orion\Src\Rtems\Bin\ORION
+
+Тестировщикам в \\newstorage\ktrs\inout\_common\Mikkir 
+нужно положить три файла с .fdi и BIUS.img

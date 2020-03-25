@@ -1,5 +1,18 @@
 WORK
+
+http://vorsv-ci.int.kronshtadt.ru:8080/job/BIUS/	- jenkins
 https://www.swrit.ru/gost-espd.html	- ЕСПД
+
+http://vorsv-trac.int.kronshtadt.ru/trac/query?
+http://vorsv-trac.int.kronshtadt.ru/trac/report    -trac-report
+
+\\newstorage\ktrs\inout\_common 	- общ.папки (напр.для тестеров)
+
+
+group=status&component=VC-3.ORION+%D0%A1%D0%9A%D0%91%D0%92.466226.002-01%2FFuncSoftware&order=priority&milestone=VC-3.ORION
+
+\\voksv-sccm\Apps - apps for instll
+
 
 INTRESTING
 https://eax.me/
