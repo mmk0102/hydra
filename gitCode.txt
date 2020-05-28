@@ -1,0 +1,29 @@
+git clone https://github.com/mmk0102/ardupilot
+cd ardupilot
+git submodule update --recursive
+git submodule init
+
+//Rebasing: keeping your code up to date
+git fetch upstream
+git rebase upstream/master
+git submodule update --recursive
+https://ardupilot.org/dev/docs/git-rebase.html#git-rebase
+
+looks like it can help then you meet comp-n errors with some boards (Pixhawk4 problem etc.):
+git submodule update --init --recursive
+
+//Git commit with descr
+git commit -am "Title" -am "descr..."
+
+//Push new local branch
+git push -u origin my_branch
+or:
+git push --force -u origin my_branch
+
+//Undo a commit and redo
+$ git commit -m "Something terribly misguided"             
+$ git reset HEAD~                                          
+<< edit files as necessary >>                              
+$ git add .                                      		  
+$ git commit -c ORIG_HEAD 
+

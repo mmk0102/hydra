@@ -1,0 +1,10 @@
+// ensure all rc channels have different functions
+    if (rc().duplicate_options_exist()) {
+        check_failed(ARMING_CHECK_PARAMETERS, true, "Duplicate Aux Switch Options");
+        return false;
+    }
+- it shuld be check only once ? (use static)
+
+bool RC_Channels::duplicate_options_exist()
+- no optimal. Do exit after first meet if (auxsw_option_counts[i] > 1) sit-n
+
