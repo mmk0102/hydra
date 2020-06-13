@@ -1,5 +1,0 @@
-// ensure all rc channels have different functions
-        if (rc().duplicate_options_exist()) {
-            check_failed(ARMING_CHECK_PARAMETERS, display_failure, "Duplicate Aux Switch Options");
-            return false;
-        }

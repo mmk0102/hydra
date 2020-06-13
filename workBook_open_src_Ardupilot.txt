@@ -8,3 +8,5 @@
 bool RC_Channels::duplicate_options_exist()
 - no optimal. Do exit after first meet if (auxsw_option_counts[i] > 1) sit-n
 
+Compass::get_num_enabled
+
