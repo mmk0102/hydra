@@ -1,12 +1,21 @@
 WORK
+portal.kronshtadt.ru
+cd projects/orion/Src/Rtems/Make/ORION/
+
+BIUS-RU
+https://svn-ktrs/!/#Products/view/head/Flight_computers/BIUS-RU/trunk/Doc/03_Software/High_Level_Requirements
+
+общ.папки (напр.для тестеров)
+\\newstorage\ktrs\inout\_common\Mikkir
 
 http://vorsv-ci.int.kronshtadt.ru:8080/job/BIUS/	- jenkins
 https://www.swrit.ru/gost-espd.html	- ЕСПД
 
 http://vorsv-trac.int.kronshtadt.ru/trac/query?
-http://vorsv-trac.int.kronshtadt.ru/trac/report    -trac-report
+http://vorsv-trac.int.kronshtadt.ru/trac/report/573
 
-\\newstorage\ktrs\inout\_common 	- общ.папки (напр.для тестеров)
+Документация в сети (на примере ТПО к БИУС):
+https://svn-ktrs/!/#Products/view/head/Flight_computers/BIUS-S/trunk/Doc/03_Software/High_Level_Requirements	
 
 
 group=status&component=VC-3.ORION+%D0%A1%D0%9A%D0%91%D0%92.466226.002-01%2FFuncSoftware&order=priority&milestone=VC-3.ORION
@@ -16,3 +25,4 @@ group=status&component=VC-3.ORION+%D0%A1%D0%9A%D0%91%D0%92.466226.002-01%2FFuncS
 
 INTRESTING
 https://eax.me/
+https://www.learnpython.org

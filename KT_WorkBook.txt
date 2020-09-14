@@ -1,3 +1,54 @@
+
+****07.09.20
+
+02 ICD : error ? :
+PostBuildEvent:
+  setlocal
+  cd C:\projects\ICD\trunk\Src
+  if %errorlevel% neq 0 goto :cmEnd
+  C:
+  if %errorlevel% neq 0 goto :cmEnd
+  copy /b CMakeLists.txt +,,
+  if %errorlevel% neq 0 goto :cmEnd
+  :cmEnd
+  endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+  :cmErrorLevel
+  exit /b %1
+  :cmDone
+  if %errorlevel% neq 0 goto :VCEnd
+  :VCEnd
+  Скопировано файлов:         1.
+FinalizeBuildStatus:
+  Файл "Win32\Debug\RUN_GEN\RUN_GEN.tlog\unsuccessfulbuild" удаляется.
+  Обращение к "Win32\Debug\RUN_GEN\RUN_GEN.tlog\RUN_GEN.lastbuildstate".
+
+
+сборки
+\\newstorage\ktrs\Builds\FunctionalSoftware\BIUS
+
+****24.08.20
+about N in: make -j N
+"I guess this is kinda heuristic — allowing make to launch CPUs + 1 processes"
+
+Ticket #18915 - тикет Леры, связанный с моим #21077
+
+****21.08.20
+[Win + M] — сворачивает все активные окна на рабочем столе.
+[Win + D] — сворачивает и разворачивает все активные окна
+****31.07.20
+cd /cygdrive/c - nav to disk in cyg
+ln -s /cygdrive/c /c - create link in cyg
+
+*****22.07.20
+От Д.Потапова ссылка на модели (для тестирования)
+\\10.10.121.90\Share\orion_sim
+
+редактор групповых политик (gpedit.msc)
+optionalfeatures.exe  - опциональные фичи
+
+Адаптер замыкания на себя создается:
+Диспетчер устройств -> (встать на сеть.адаптеры) - действия - установить старое оборудование и т.д.
+
 *****16.03.20
 Уст-л: VS Code, git - в C:\Users\Mikkir\AppData\Local\Programs поскольку не было прав админа.
 С ГИТом встал MINGW64, when commited it give me mess:
@@ -68,7 +119,11 @@ namespace OESO
 
 Отладка: 
 файл Contrace: 
-CONTRACE("%20s: %d\n", "State", (int)POS::indicator.StateCode());
+CONTRACE("%20s: %d\n", "State", (int)OS::indicator.StateCode());
+
+static TIMETRACE tt(1000);
+tt("Печать раз в секунду %d\n", var );
+
 
 *****23.03.20
 Делаю запись в понед. 23.03
@@ -101,9 +156,16 @@ Should we always update before committing in SVN?
 cygwin поставил снова из файла cygwin_new_repack.zip который содержит прав-ю версию. В папке C:\cygwin_pack лежит так же нужный bat скрипт и нужно поправить fstab из etc.
 
 *****25.03.20
-Компиляция ICD, Styx adn Orion: 
+Компиляция ICD, Styx adn Orion (под Rtem): 
 Путь к C:\projects\ICD\trunk\Src\build_icd
-Иду в cyg_win по этому пути и запускаю скрипты (в папке должно быть 3 файла: build_rtems_toolchain.cmake, Cmake_01_ninja_create.sh, Cmake_02_build.sh).
+
+cd projects/ICD/trunk/Src/build_icd/
+
+
+Иду в cyg_win по этому пути и запускаю скрипты 
+sh Cmake_01_ninja_create.sh
+sh Cmake_02_build.sh
+
 
 Рабочие скрипты выгл-т так:
 Cmake_01_ninja_create.sh:
@@ -112,6 +174,9 @@ export ICD_INSLALL_PATH=/cygdrive/c/projects/ICD/inst_rtems_debug/
 export RTEMS_PATH=/cygdrive/c/cygwin_pack/ppc-rtems-4.9.2
 export STYX_PATH=/Styx/Src
 
+Надо из C:\projects\ICD\trunk\Generated\src "зеленые скрипты"
+скопировать в C:\projects\ICD\trunk\Src\src
+похоже скрипты это перестали выполнять
 
 #-DICD_BUILD_TYPE="BIUS" 
 cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=build_rtems_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -DICD_BUILD_TYPE="BIUS" -DICD_BIGENDIAN=YES -DCMAKE_INSTALL_PREFIX=$ICD_INSLALL_PATH -DCMAKE_VERBOSE_MAKEFILE=on -DRTEMS_PATH=$RTEMS_PATH -DSTYX_PATH=$STYX_PATH -DTARGET_OS=RTEMS $ICD_SOURCE_DIR
@@ -127,11 +192,15 @@ Styx adn Orion собираются под make, не cmake(in rtem):
 
 Компил-я Styx (если он измен-я) - можно просто: 
 make -j 7 MODE=DEBUG
-в C:\projects\Styx\Rtems\Make (все под cyg_win)
+в cd projects/Styx/Rtems/Make (все под cyg_win)
+
+Под Win (Styx) - скрипты от сюда: C:\projects\Styx\build_win (24.07.2020)
 
 Компил-я Orion (rtem, in cyg_win):
 C:\projects\orion\Src\Rtems\Make\ORION
-make_wo_icd_debug1.sh
+cd projects/orion/Src/Rtems/Make/ORION/
+sh make_wo_icd_debug1.sh
+если были ошибки - сначала make clean
 
 Выдает ошибку: Нет правила для сборки цели «LinkClock.cpp»
 возм-о в cyg_win нет  /mfd
@@ -143,3 +212,59 @@ C:\projects\orion\Src\Rtems\Bin\ORION
 
 Тестировщикам в \\newstorage\ktrs\inout\_common\Mikkir 
 нужно положить три файла с .fdi и BIUS.img
+
+Комп-я ICD под Win - 4-е скрипта отсюда (скорее всего, пишу из дома 06.04.20):
+C:\projects\ICD\trunk\Src\build_win32_deb
+
+Сборка под Windows запуском скриптов из каталагов (01, 02..., с паузами в конце исходников)
+Если есть проблемы со сборкой под Rtems возможно все надо пересобрать сначала под Виндовз. Так было при добавлении новых директорий в Орион, который не виделись Визуал Студией до пересборки под Виндовс.
+*****26.03.20
+
+В Jenkins при сборке можно (если не исп-я вывод в консоль) убрать все дебаг-опции.
+Если не было обновлений Styx и ICD можно вообще все убрать выставив только Rtems.
+
+*****27.03.20
+В отчете по Jira писать 5d - за неделю.
+Проект VC-3.ORION
+
+TrueConf 4k adress: 82.204.181.253
+
+*****01.04.20
+Why it in Ethernet folder ?
+RegisterOUTMessages(new ICDOUTMessageGlobal<Messages::VC2_PVS_CONTROL>(
+		&Messages::CollectData, MTO_MONITOR_TM, &MTO::IsMonitorDevices));
+	RegisterOUTMessages(new ICDOUTMessageGlobal<Messages::VC3_PVS_CONTROL>(
+		&Messages::CollectData, MTO_MONITOR_TM, &MTO::IsMonitorDevices));
+
+*****03.04.20
+Пример определения соб-й ноды
+VC3::UNITNUM Self = static_cast<VC3::UNITNUM>(VC3NUMSetting.Value());
+    if (Self == VC3::UNIT2_PRIO)
+
+Много времени потерял с тикетом #20357 пока не узнал что:
+От БИУС на БУОСО 260/11 является командой «Включить тест-контроль ПОЗ», от БУОСО на БИУС 260/11 является признаком «ПУЛ запущен от СО».
+От БИУС на БУОСО - находятся в 
+\ORION\IA429Output\BUOSO.cpp 
+
+Тикет #20746 закрыл Сергей А.
+
+*****07.04.20
+сообщение с порта НПУ (7011, 7012) - это в радиоканале. 
+\IRadioTask\RadioChannels.cpp
+взять с виртуального канала - это например 
+Monitor::exch_VC2_CM_V_BUOSO 
+
+static TIMETRACE tt(1000);
+tt("Печать раз в секунду %d\n", var );
+
+send to Roman Kol two vers: 
+a - comment ssm
+b - no comment
+
+*****14.04.20
+VC3::POS_VV
+
+
+
+
+

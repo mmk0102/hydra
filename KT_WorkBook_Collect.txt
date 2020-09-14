@@ -1,0 +1,25 @@
+Компиляция ICD
+
+Комп-я ICD под Win - 4-е скрипта отсюда 
+C:\projects\ICD\trunk\Src\build_win32_deb
+
+RTEM: 
+cyg_win 
+cd projects/ICD/trunk/Src/build_icd/
+sh Cmake_01_ninja_create.sh
+sh Cmake_02_build.sh
+
+Компил-я Styx (если он измен-я) - можно просто
+(все под cyg_win): 
+make -j 7 MODE=DEBUG
+в cd projects/Styx/Rtems/Make 
+
+Под Win (Styx) - скрипты от сюда: C:\projects\Styx\build_win (24.07.2020)
+
+
+Компил-я Orion (rtem, in cyg_win):
+C:\projects\orion\Src\Rtems\Make\ORION
+cd projects/orion/Src/Rtems/Make/ORION/
+sh make_wo_icd_debug1.sh
+если были ошибки - сначала make clean
+
